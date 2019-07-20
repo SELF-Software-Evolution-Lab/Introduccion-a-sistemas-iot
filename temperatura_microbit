@@ -28,7 +28,7 @@ radio.onReceivedNumber(function (receivedNumber) {
     if (array.length == 2) {
         // Calcula el promedio con las tres lecturas de
         // temperatura de los microbit
-        average = 
+        average = array.get() + array.get()
         average = Math.trunc(average)
         basic.showNumber(average)
     }
@@ -43,6 +43,8 @@ let average = 0
 let temp2 = 0
 let serialNumber = 0
 let player_index = 0
+// este array contendra la lectura de temperatura
+// de los microbit de tus companeros
 let array: number[] = []
 let players: number[] = []
 radio.setGroup(2)
