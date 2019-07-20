@@ -1,0 +1,54 @@
+radio.onReceivedNumber(function (receivedNumber) {
+    radio.receivedPacket(receivedNumber)
+    serialNumber = radio.receivedPacket(RadioPacketProperty.SerialNumber)
+    // temp2 es el valor de temperatura sensado por tu
+    // microbit
+    temp2 = input.temperature()
+    player_index = players.indexOf(serialNumber)
+    // agrega el numero serial de tu compañero en la
+    // siguiente línea
+    if (serialNumber == ) {
+        if (player_index < 0) {
+            players.unshift(serialNumber)
+            array.unshift(receivedNumber)
+        } else {
+            array.set(player_index, receivedNumber)
+        }
+    }
+    // agrega el numero serial de tu compañero en la
+    // siguiente línea
+    if (serialNumber == ) {
+        if (player_index < 0) {
+            players.unshift(serialNumber)
+            array.unshift(receivedNumber)
+        } else {
+            array.set(player_index, receivedNumber)
+        }
+    }
+    if (array.length == 2) {
+        // Calcula el promedio con las tres lecturas de
+        // temperatura de los microbit
+        average = 
+        average = Math.trunc(average)
+        basic.showNumber(average)
+    }
+})
+input.onButtonPressed(Button.A, function () {
+    temp = input.temperature()
+    basic.showString("L")
+    basic.showNumber(temp)
+})
+let temp = 0
+let average = 0
+let temp2 = 0
+let serialNumber = 0
+let player_index = 0
+let array: number[] = []
+let players: number[] = []
+radio.setGroup(2)
+radio.setTransmitSerialNumber(true)
+radio.setTransmitPower(6)
+basic.forever(function () {
+    temp = input.temperature()
+    radio.sendNumber(temp)
+})
