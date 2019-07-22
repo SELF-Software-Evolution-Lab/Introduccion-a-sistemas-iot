@@ -1,13 +1,9 @@
 radio.onReceivedNumber(function (receivedNumber) {
     radio.receivedPacket(receivedNumber)
     serialNumber = radio.receivedPacket(RadioPacketProperty.SerialNumber)
-    // temp2 es el valor de temperatura sensado por tu
-    // microbit
-    temp2 = input.temperature()
     player_index = players.indexOf(serialNumber)
-    // agrega el numero serial de tu compañero en la
-    // siguiente línea
-    if (serialNumber == ) {
+    // reemplaza el 0 de la siguiente linea por el numero serial de uno de tus compañeros
+    if (serialNumber == 0) {
         if (player_index < 0) {
             players.unshift(serialNumber)
             array.unshift(receivedNumber)
@@ -15,9 +11,8 @@ radio.onReceivedNumber(function (receivedNumber) {
             array.set(player_index, receivedNumber)
         }
     }
-    // agrega el numero serial de tu compañero en la
-    // siguiente línea
-    if (serialNumber == ) {
+    // reemplaza el 0 de la siguiente linea por el numero serial de uno de tus compañeros
+    if (serialNumber == 0) {
         if (player_index < 0) {
             players.unshift(serialNumber)
             array.unshift(receivedNumber)
@@ -26,9 +21,14 @@ radio.onReceivedNumber(function (receivedNumber) {
         }
     }
     if (array.length == 2) {
-        // Calcula el promedio con las tres lecturas de
-        // temperatura de los microbit
-        average = array.get() + array.get()
+        // mi_temperatura es el valor de temperatura sensado por tu microbit
+        mi_temperatura = input.temperature()
+        // temperatura_dispositivo_1 es el valor de temperatura sensado por un microbit de tu grupo
+        temperatura_dispositivo_1 = array.get(0)
+        // temperatura_dispositivo_1 es el valor de temperatura sensado por un microbit de tu grupo
+        temperatura_dispositivo_2 = array.get(1)
+        // Reemplaza el 0 de la siguiente línea por la operación de calculo de la temperatura promedio de tu grupo.
+        average = 0
         average = Math.trunc(average)
         basic.showNumber(average)
     }
@@ -40,7 +40,9 @@ input.onButtonPressed(Button.A, function () {
 })
 let temp = 0
 let average = 0
-let temp2 = 0
+let temperatura_dispositivo_1 = 0
+let temperatura_dispositivo_2 = 0
+let mi_temperatura = 0
 let serialNumber = 0
 let player_index = 0
 // este array contendra la lectura de temperatura
@@ -53,4 +55,4 @@ radio.setTransmitPower(6)
 basic.forever(function () {
     temp = input.temperature()
     radio.sendNumber(temp)
-})
+}) 
