@@ -1,58 +1,63 @@
-radio.onReceivedNumber(function (receivedNumber) {
-    radio.receivedPacket(receivedNumber)
-    serialNumber = radio.receivedPacket(RadioPacketProperty.SerialNumber)
-    player_index = players.indexOf(serialNumber)
-    // reemplaza el 0 de la siguiente linea por el numero serial de uno de tus compañeros
-    if (serialNumber == 0) {
-        if (player_index < 0) {
-            players.unshift(serialNumber)
-            array.unshift(receivedNumber)
+radio.onReceivedNumber(function (temperatura_recibida) {
+    radio.receivedPacket(temperatura_recibida)
+    numero_serial = radio.receivedPacket(RadioPacketProperty.SerialNumber)
+    integrante = grupo.indexOf(numero_serial)
+    // reemplaza el 0 de la siguiente linea por el numero
+    // serial de uno de tus compañeros
+    if (numero_serial == 0) {
+        if (integrante < 0) {
+            grupo.unshift(numero_serial)
+            valores_temperatura.unshift(temperatura_recibida)
         } else {
-            array.set(player_index, receivedNumber)
+            valores_temperatura.set(integrante, temperatura_recibida)
         }
     }
-    // reemplaza el 0 de la siguiente linea por el numero serial de uno de tus compañeros
-    if (serialNumber == 0) {
-        if (player_index < 0) {
-            players.unshift(serialNumber)
-            array.unshift(receivedNumber)
+    // reemplaza el 0 de la siguiente linea por el numero
+    // serial de uno de tus compañeros
+    if (numero_serial == 0) {
+        if (integrante < 0) {
+            grupo.unshift(numero_serial)
+            valores_temperatura.unshift(temperatura_recibida)
         } else {
-            array.set(player_index, receivedNumber)
+            valores_temperatura.set(integrante, temperatura_recibida)
         }
     }
-    if (array.length == 2) {
-        // mi_temperatura es el valor de temperatura sensado por tu microbit
+    if (valores_temperatura.length == 2) {
+        // mi_temperatura es el valor de temperatura sensado
+        // por tu microbit
         mi_temperatura = input.temperature()
-        // temperatura_dispositivo_1 es el valor de temperatura sensado por un microbit de tu grupo
-        temperatura_dispositivo_1 = array.get(0)
-        // temperatura_dispositivo_1 es el valor de temperatura sensado por un microbit de tu grupo
-        temperatura_dispositivo_2 = array.get(1)
-        // Reemplaza el 0 de la siguiente línea por la operación de calculo de la temperatura promedio de tu grupo.
-        average = 0
-        average = Math.trunc(average)
-        basic.showNumber(average)
+        // temperatura_dispositivo_1 y
+        // temperatura_dispositivo_2 son los valores de
+        // temperatura sensado por los otros microbit de tu
+        // grupo
+        temperatura_dispositivo_1 = valores_temperatura.get(0)
+        temperatura_dispositivo_2 = valores_temperatura.get(1)
+        // Reemplaza el 0 de la siguiente línea por la
+        // operación de calculo de la temperatura promedio de
+        // tu grupo.
+        promedio = 0
+        promedio = Math.trunc(promedio)
+        basic.showNumber(promedio)
     }
 })
 input.onButtonPressed(Button.A, function () {
-    temp = input.temperature()
+    temperatura = input.temperature()
     basic.showString("L")
-    basic.showNumber(temp)
+    basic.showNumber(temperatura)
 })
-let temp = 0
-let average = 0
-let temperatura_dispositivo_1 = 0
-let temperatura_dispositivo_2 = 0
+let temperatura = 0
+let promedio = 0
 let mi_temperatura = 0
-let serialNumber = 0
-let player_index = 0
-// este array contendra la lectura de temperatura
-// de los microbit de tus companeros
-let array: number[] = []
-let players: number[] = []
+let numero_serial = 0
+let grupo: number[] = []
+let valores_temperatura: number[] = []
+let temperatura_dispositivo_2 = 0
+let temperatura_dispositivo_1 = 0
+let integrante = 0
 radio.setGroup(2)
 radio.setTransmitSerialNumber(true)
 radio.setTransmitPower(6)
 basic.forever(function () {
-    temp = input.temperature()
-    radio.sendNumber(temp)
-}) 
+    temperatura = input.temperature()
+    radio.sendNumber(temperatura)
+})
