@@ -4,7 +4,8 @@ radio.onReceivedNumber(function (temperatura_recibida) {
     integrante = grupo.indexOf(numero_serial)
     // reemplaza el 0 de la siguiente linea por el numero
     // serial de uno de tus compañeros
-    if (numero_serial == 0) {
+    compañero_1 = 0
+    if (numero_serial == compañero_1) {
         if (integrante < 0) {
             grupo.unshift(numero_serial)
             valores_temperatura.unshift(temperatura_recibida)
@@ -13,8 +14,9 @@ radio.onReceivedNumber(function (temperatura_recibida) {
         }
     }
     // reemplaza el 0 de la siguiente linea por el numero
-    // serial de uno de tus compañeros
-    if (numero_serial == 0) {
+    // serial de tu otro compañero
+    compañero_2 = 0
+    if (numero_serial == compañero_2) {
         if (integrante < 0) {
             grupo.unshift(numero_serial)
             valores_temperatura.unshift(temperatura_recibida)
@@ -48,12 +50,14 @@ input.onButtonPressed(Button.A, function () {
 let temperatura = 0
 let promedio = 0
 let mi_temperatura = 0
-let numero_serial = 0
-let grupo: number[] = []
-let valores_temperatura: number[] = []
-let temperatura_dispositivo_2 = 0
-let temperatura_dispositivo_1 = 0
 let integrante = 0
+let compañero_1 = 0
+let compañero_2 = 0
+let temperatura_dispositivo_1 = 0
+let temperatura_dispositivo_2 = 0
+let valores_temperatura: number[] = []
+let grupo: number[] = []
+let numero_serial = 0
 radio.setGroup(2)
 radio.setTransmitSerialNumber(true)
 radio.setTransmitPower(6)
@@ -61,3 +65,4 @@ basic.forever(function () {
     temperatura = input.temperature()
     radio.sendNumber(temperatura)
 })
+
