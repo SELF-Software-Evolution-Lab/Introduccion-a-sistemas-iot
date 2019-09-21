@@ -1,0 +1,153 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red245\green245\blue245;\red252\green41\blue19;
+\red246\green246\blue245;\red21\green93\blue255;\red35\green255\blue6;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c96970\c96970\c96849;\cssrgb\c100000\c25745\c7993;
+\cssrgb\c97076\c97076\c96834;\cssrgb\c8872\c47049\c100000;\cssrgb\c0\c100000\c0;}
+\margl1440\margr1440\vieww14500\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs27\fsmilli13600 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\
+1771184981\
+1212816584\
+-767450702\
+538398751\
+182623856\
+-1591258411\
+\
+\cf4 \cb5 Beacon serial\
+\
+radio.onReceivedNumber(function (receivedNumber) \{\
+    data = radio.receivedNumber()\
+    if (data != 0) \{\
+        serialNumber = radio.receivedPacket(RadioPacketProperty.SerialNumber)\
+        basic.showString("Sn")\
+        basic.showNumber(serialNumber)\
+    \}\
+\})\
+input.onButtonPressed(Button.AB, function () \{\
+    count = count + 1\
+    if (count >= 6) \{\
+        radio.sendNumber(RadioPacketProperty.SerialNumber)\
+        count = 0\
+    \}\
+\})\
+let count = 0\
+let serialNumber = 0\
+let data = 0\
+radio.setGroup(2)\
+radio.setTransmitSerialNumber(true)\
+radio.setTransmitPower(6)\
+basic.forever(function () \{\
+    radio.sendNumber(0)\
+    basic.showString("G")\
+    basic.showNumber(1)\
+\})\
+\cf2 \cb3 \
+\
+\cf6 \cb5 hunter serial\
+\
+radio.onReceivedNumber(function (receivedNumber) \{\
+    data = radio.receivedNumber()\
+    if (data != 0) \{\
+        serialNumber = radio.receivedPacket(RadioPacketProperty.SerialNumber)\
+        basic.showString("Sn")\
+        basic.showNumber(serialNumber)\
+    \} else \{\
+        signal = radio.receivedPacket(RadioPacketProperty.SignalStrength)\
+        if (signal < -70) \{\
+            basic.showIcon(IconNames.SmallDiamond)\
+        \} else if (signal < -55) \{\
+            basic.showIcon(IconNames.Diamond)\
+        \} else \{\
+            basic.showNumber(1);\
+        \}\
+    \}\
+\})\
+\
+input.onButtonPressed(Button.AB, function () \{\
+    count = count + 1\
+    if (count >= 6) \{\
+        radio.sendNumber(RadioPacketProperty.SerialNumber)\
+        count = 0\
+    \}\
+\})\
+let signal = 0;\
+let count = 0\
+let serialNumber = 0\
+let data = 0\
+radio.setGroup(1)\
+radio.setTransmitSerialNumber(true)\
+radio.setTransmitPower(6)\
+\cf2 \cb3 \
+\
+\
+\cf7 \cb5 temperatura rev 0\
+\
+radio.onReceivedNumber(function (temperatura_recibida) \{\
+    radio.receivedPacket(temperatura_recibida)\
+    numero_serial = radio.receivedPacket(RadioPacketProperty.SerialNumber)\
+    integrante = grupo.indexOf(numero_serial)\
+    // reemplaza el 0 de la siguiente linea por el numero\
+    // serial de uno de tus compa\'f1eros\
+    if (numero_serial == 0) \{\
+        if (integrante < 0) \{\
+            grupo.unshift(numero_serial)\
+            valores_temperatura.unshift(temperatura_recibida)\
+        \} else \{\
+            valores_temperatura.set(integrante, temperatura_recibida)\
+        \}\
+    \}\
+    // reemplaza el 0 de la siguiente linea por el numero\
+    // serial de uno de tus compa\'f1eros\
+    if (numero_serial == 0) \{\
+        if (integrante < 0) \{\
+            grupo.unshift(numero_serial)\
+            valores_temperatura.unshift(temperatura_recibida)\
+        \} else \{\
+            valores_temperatura.set(integrante, temperatura_recibida)\
+        \}\
+    \}\
+    if (valores_temperatura.length == 2) \{\
+        // mi_temperatura es el valor de temperatura sensado\
+        // por tu microbit\
+        mi_temperatura = input.temperature()\
+        // temperatura_dispositivo_1 y\
+        // temperatura_dispositivo_2 son los valores de\
+        // temperatura sensado por los otros microbit de tu\
+        // grupo\
+        temperatura_dispositivo_1 = valores_temperatura.get(0)\
+        temperatura_dispositivo_2 = valores_temperatura.get(1)\
+        // Reemplaza el 0 de la siguiente l\'ednea por la\
+        // operaci\'f3n de calculo de la temperatura promedio de\
+        // tu grupo.\
+        promedio = 0\
+        promedio = Math.trunc(promedio)\
+        basic.showNumber(promedio)\
+    \}\
+\})\
+input.onButtonPressed(Button.A, function () \{\
+    temperatura = input.temperature()\
+    basic.showString("L")\
+    basic.showNumber(temperatura)\
+\})\
+let temperatura = 0\
+let promedio = 0\
+let mi_temperatura = 0\
+let numero_serial = 0\
+let grupo: number[] = []\
+let valores_temperatura: number[] = []\
+let temperatura_dispositivo_2 = 0\
+let temperatura_dispositivo_1 = 0\
+let integrante = 0\
+radio.setGroup(2)\
+radio.setTransmitSerialNumber(true)\
+radio.setTransmitPower(6)\
+basic.forever(function () \{\
+    temperatura = input.temperature()\
+    radio.sendNumber(temperatura)\
+\})\
+\cf2 \cb3 \
+}
