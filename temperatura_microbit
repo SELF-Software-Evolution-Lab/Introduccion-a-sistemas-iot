@@ -5,17 +5,20 @@ radio.onReceivedNumber(function (temperatura_recibida) {
     // reemplaza el 0 de la siguiente linea por el numero
     // serial de uno de tus compañeros
     compañero_1 = 0
+
     if (numero_serial == compañero_1) {
-        if (integrante < 0) {
+        // se valida que el compañero 1 ya esta en el vector grupo
+        if (integrante < 0) { // en caso que no se almacena el serial y la temperatura
             grupo.unshift(numero_serial)
             valores_temperatura.unshift(temperatura_recibida)
-        } else {
+        } else { // en caso que si se actualiza
             valores_temperatura.set(integrante, temperatura_recibida)
         }
     }
     // reemplaza el 0 de la siguiente linea por el numero
     // serial de tu otro compañero
     compañero_2 = 0
+
     if (numero_serial == compañero_2) {
         if (integrante < 0) {
             grupo.unshift(numero_serial)
@@ -30,14 +33,11 @@ radio.onReceivedNumber(function (temperatura_recibida) {
         mi_temperatura = input.temperature()
         // temperatura_dispositivo_1 y
         // temperatura_dispositivo_2 son los valores de
-        // temperatura sensado por los otros microbit de tu
+        // temperatura sensado por los                        otros microbit de tu
         // grupo
         temperatura_dispositivo_1 = valores_temperatura.get(0)
         temperatura_dispositivo_2 = valores_temperatura.get(1)
-        // Reemplaza el 0 de la siguiente línea por la
-        // operación de calculo de la temperatura promedio de
-        // tu grupo.
-        promedio = 0
+        promedio = (temperatura_dispositivo_1 + temperatura_dispositivo_2) / 2
         promedio = Math.trunc(promedio)
         basic.showNumber(promedio)
     }
